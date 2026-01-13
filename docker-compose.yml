@@ -1,0 +1,24 @@
+services:
+  vue-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Change this to 'production' to test your distroless build locally
+      target: development 
+    user: "node"
+    volumes:
+      - .:/src:cached
+      - node_modules_vue:/src/node_modules
+    ports:
+      - "3000:3000"
+    healthcheck:
+      # Note: Healthchecks using 'curl' will FAIL in distroless production
+      # because 'curl' doesn't exist. This check only works in 'development'.
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    tty: true
+
+volumes:
+  node_modules_vue:

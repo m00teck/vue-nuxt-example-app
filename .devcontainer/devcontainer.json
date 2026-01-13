@@ -1,0 +1,25 @@
+{
+  "name": "Nuxt 4 Remote Dev",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "vue-app",
+  "workspaceFolder": "/src",
+  "remoteUser": "node",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true,
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "volar.takeOverMode.enabled": true
+      },
+      "extensions": [
+        "Vue.volar",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "pinia.pinia-vscode"
+      ]
+    }
+  },
+  "waitFor": "healthy",
+  "postCreateCommand": "pnpm install"
+}
