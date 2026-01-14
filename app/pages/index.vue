@@ -1,15 +1,12 @@
-<script setup>
-// Nuxt auto-imports useFetch for us!
-const { data, pending } = await useFetch('/api/hello')
-</script>
-
 <template>
     <div>
-        <h1>Frontend Meets Backend</h1>
-
-        <p v-if="pending">Fetching from server...</p>
-        <p v-else>{{ data.message }}</p>
-
-        <NuxtLink to="/about">Go to About Page</NuxtLink>
+        <h1>Nuxt 4 Tutorial</h1>
+        <nav>
+            <ul>
+                <li>
+                    <NuxtLink to="/personalizer">Project 1: Personalizer (TS + API)</NuxtLink>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
