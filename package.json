@@ -10,7 +10,8 @@
     "postinstall": "nuxt prepare",
     "typecheck": "vue-tsc --noEmit",
     "curl:user": "curl http://localhost:3000/api/hello?name=Robot",
-    "curl:profile": "curl http://localhost:3000/api/profile?name=Robot&age=30&color=%23ff0000"
+    "curl:profile": "curl http://localhost:3000/api/profile?name=Robot&age=30&color=%23ff0000",
+    "curl:tasks": "curl http://localhost:3000/api/tasks"
   },
   "dependencies": {
     "nuxt": "^4.2.2",
