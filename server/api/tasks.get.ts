@@ -1,10 +1,6 @@
-interface Task {
-  id: string;
-  title: string;
-  completed: boolean;
-}
+import { Task } from '~~/shared/tasks';
 
-export default defineEventHandler((event): Task[] => {
+export default defineEventHandler(async (event): Promise<Task[]> => {
   // For now, we'll return a hardcoded array
   return [
     { id: "1", title: "Install Nuxt 4", completed: true },
