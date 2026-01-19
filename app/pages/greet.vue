@@ -4,6 +4,7 @@ const { data, refresh } = await useFetch('/api/hello', { query: { name: nameInpu
 </script>
 
 <template>
+    <NuxtLink to="/">Go back Home</NuxtLink>
     <div>
         <input v-model="nameInput" placeholder="Enter your name" />
         <button @click="refresh">Greet Me</button>
