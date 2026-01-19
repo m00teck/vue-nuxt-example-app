@@ -4,6 +4,12 @@
         <nav>
             <ul>
                 <li>
+                    <NuxtLink to="/about">About</NuxtLink>
+                </li>
+                <li>
+                    <NuxtLink to="/greet">Greetings!</NuxtLink>
+                </li>
+                <li>
                     <NuxtLink to="/personalizer">Project 1: Personalizer (TS + API)</NuxtLink>
                 </li>
                 <li>
