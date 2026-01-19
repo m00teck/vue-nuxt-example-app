@@ -7,9 +7,19 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "files.watcherExclude": {
+          "**/.nuxt/**": true,
+          "**/.output/**": true,
+          "**/node_modules/**": true,
+          "**/dist/**": true
+        },
         "editor.formatOnSave": true,
-        "typescript.tsdk": "node_modules/typescript/lib",
-        "volar.takeOverMode.enabled": true
+        "editor.defaultFormatter": "Vue.volar",
+        "[vue]": {
+          "editor.defaultFormatter": "Vue.volar"
+        },
+        "typescript.tsserver.maxTsServerMemory": 4096,
+        "vue.server.maxOldSpaceSize": 4096
       },
       "extensions": [
         "Vue.volar",
