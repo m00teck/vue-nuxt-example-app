@@ -1,4 +1,4 @@
-import { CreateTaskBody, TaskResponse} from '~~/shared/tasks';
+import { CreateTaskBody, TaskResponse } from "~~/shared/tasks";
 
 export default defineEventHandler(async (event): Promise<TaskResponse> => {
   // We use the generic <CreateTaskBody> to tell TS what the body looks like
@@ -8,7 +8,7 @@ export default defineEventHandler(async (event): Promise<TaskResponse> => {
   if (!body?.title) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Title is required',
+      statusMessage: "Title is required",
     });
   }
 
@@ -17,7 +17,7 @@ export default defineEventHandler(async (event): Promise<TaskResponse> => {
   const newTask: TaskResponse = {
     id: Math.random().toString(36).substring(7),
     title: body.title,
-    completed: false
+    completed: false,
   };
 
   return newTask;
