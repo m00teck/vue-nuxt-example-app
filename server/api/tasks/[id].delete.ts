@@ -1,10 +1,7 @@
-// server/api/tasks/[id].delete.ts
-import { Task } from "~~/shared/types";
-
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
 
-  const taskExists = true; // Simulating the result
+  const taskExists = true;
 
   if (!taskExists) {
     throw createError({
