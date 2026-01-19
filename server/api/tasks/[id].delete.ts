@@ -1,14 +1,20 @@
 // server/api/tasks/[id].delete.ts
-import { Task } from '~~/shared/types'
+import { Task } from "~~/shared/types";
 
 export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, 'id')
+  const id = getRouterParam(event, "id");
 
-  // In a real scenario, you'd run:
-  // await myDatabase.tasks.delete(id)
-  
-  return { 
-    success: true,
-    message: `Task ${id} deleted successfully` 
+  const taskExists = true; // Simulating the result
+
+  if (!taskExists) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: `Task with ID ${id} not found`,
+    });
   }
-})
+
+  return {
+    success: true,
+    message: `Task ${id} has been permanently deleted`,
+  };
+});
