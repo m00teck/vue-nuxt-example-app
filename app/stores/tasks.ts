@@ -1,6 +1,6 @@
 // app/stores/tasks.ts
 import { defineStore } from "pinia";
-import type { Task, UpdateTaskInput } from "~~/shared/types";
+import type { Task, UpdateTaskInput } from "~~/shared/tasks";
 
 export const useTaskStore = defineStore("tasks", () => {
   const tasks = ref<Task[]>([]);
@@ -50,5 +50,14 @@ export const useTaskStore = defineStore("tasks", () => {
     }
   }
 
-  return { tasks, loading, fetchTasks, addTask, toggleTask, removeTask };
+  return {
+    tasks,
+    loading,
+    fetchTasks,
+    addTask,
+    toggleTask,
+    removeTask,
+    totalTasks,
+    completedTasks,
+  };
 });
