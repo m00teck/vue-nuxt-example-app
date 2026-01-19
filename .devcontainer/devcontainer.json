@@ -26,7 +26,8 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "bradlc.vscode-tailwindcss",
-        "pinia.pinia-vscode"
+        "pinia.pinia-vscode",
+        "nuxtr.nuxtr-vscode"
       ]
     }
   },
