@@ -1,24 +1,22 @@
-import { CreateTaskBody, TaskResponse } from "~~/shared/tasks";
+import { db } from "~~/server/utils/db";
+import { tasks } from "~~/server/utils/db/schema";
+import { NewTask } from "~~/shared/types/tasks";
 
-export default defineEventHandler(async (event): Promise<TaskResponse> => {
-  // We use the generic <CreateTaskBody> to tell TS what the body looks like
-  const body = await readBody<CreateTaskBody>(event);
+export default defineEventHandler(async (event) => {
+  const body = await readBody<{ title: string }>(event);
 
-  // If title is missing or empty, we can throw a typed error
-  if (!body?.title) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "Title is required",
-    });
+  if (!body.title) {
+    throw createError({ statusCode: 400, statusMessage: "Title is required" });
   }
 
-  // In a real app, this is where your database logic goes.
-  // For now, we'll return a "mock" created task.
-  const newTask: TaskResponse = {
-    id: Math.random().toString(36).substring(7),
+  // Define the data for insertion
+  const insertData: NewTask = {
     title: body.title,
     completed: false,
+    // Note: userId would go here if we were tracking ownership!
   };
+
+  const [newTask] = await db.insert(tasks).values(insertData).returning(); // This returns the full object including the generated UUID
 
   return newTask;
 });
