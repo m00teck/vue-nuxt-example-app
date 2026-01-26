@@ -2,7 +2,6 @@
 
 import { useTaskStore } from '~/stores/tasks';
 import { storeToRefs } from 'pinia';
-import { routerKey } from 'vue-router';
 
 const taskStore = useTaskStore();
 
@@ -40,9 +39,15 @@ async function handleAdd() {
 
     <ul v-else-if="tasks && tasks.length">
       <li v-for="task in tasks" :key="task.id" class="task-item">
-        <input class="status-icon" :checked="task.completed" @change="taskStore.toggleTask(task.id, !task.completed)">
-        {{ task.completed ? '✅' : '⭕' }}
-        </input>
+        <label class="status-label">
+          <input 
+            type="checkbox"
+            class="status-checkbox" 
+            :checked="task.completed" 
+            @change="taskStore.toggleTask(task.id, !task.completed)"
+          >
+          <span class="status-icon">{{ task.completed ? '✅' : '⭕' }}</span>
+        </label>
 
         <span :class="{ 'completed-text': task.completed }">
           {{ task.title }}
