@@ -6,3 +6,8 @@ export type NewTask = InferInsertModel<typeof tasks>;
 
 // UI specific helper
 export type UpdateTaskInput = Partial<Pick<Task, "title" | "completed">>;
+
+export interface TaskErrorRequest {
+  statusCode: number;
+  statusMessage: string;
+}
