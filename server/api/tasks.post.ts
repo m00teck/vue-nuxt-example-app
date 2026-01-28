@@ -1,22 +1,34 @@
-import { db } from "~~/server/utils/db";
-import { tasks } from "~~/server/utils/db/schema";
-import { NewTask } from "~~/shared/types/tasks";
-
+// server/api/tasks.post.ts
 export default defineEventHandler(async (event) => {
-  const body = await readBody<{ title: string }>(event);
+  // 1. Get the session
+  const session = await getUserSession(event);
+
+  console.log("Session in tasks.post.ts: ", session);
+
+  // 2. Check auth BEFORE trying to do anything else
+  if (!session?.user) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: "You must be logged in to create tasks.",
+    });
+  }
+
+  // 3. NOW read the body
+  const body = await readBody(event);
 
   if (!body.title) {
     throw createError({ statusCode: 400, statusMessage: "Title is required" });
   }
 
-  // Define the data for insertion
-  const insertData: NewTask = {
-    title: body.title,
-    completed: false,
-    // Note: userId would go here if we were tracking ownership!
-  };
-
-  const [newTask] = await db.insert(tasks).values(insertData).returning(); // This returns the full object including the generated UUID
+  // 4. Insert into DB
+  const [newTask] = await db
+    .insert(tasks)
+    .values({
+      title: body.title,
+      userId: session.user.id,
+      completed: false,
+    })
+    .returning();
 
   return newTask;
 });

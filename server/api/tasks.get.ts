@@ -4,6 +4,11 @@ import { tasks } from "~~/server/utils/db/schema";
 import { desc } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
+  const session = await getUserSession(event);
+
+  if (!session?.user) {
+    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+  }
   try {
     const allTasks = await db
       .select()
