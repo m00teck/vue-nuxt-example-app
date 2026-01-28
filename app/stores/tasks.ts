@@ -1,11 +1,12 @@
 // app/stores/tasks.ts
 import { defineStore } from "pinia";
-import type { Task, UpdateTaskInput } from "~~/shared/tasks";
+import type { Task, UpdateTaskInput } from "~~/shared/types/tasks";
 
 export const useTaskStore = defineStore("tasks", () => {
   const tasks = ref<Task[]>([]);
   const loading = ref(false);
   const totalTasks = computed(() => tasks.value.length);
+  const errorMessage = ref<string | null>(null);
   const completedTasks = computed(
     () => tasks.value.filter((task: Task) => task.completed).length,
   );
@@ -21,11 +22,23 @@ export const useTaskStore = defineStore("tasks", () => {
   }
 
   async function addTask(title: string) {
+    const userStore = useUserStore();
+
+    // We check if a user is logged in before even trying
+    if (!userStore.user?.id) {
+      errorMessage.value = "You must be logged in to add tasks.";
+      return;
+    }
+
     const newTask = await $fetch<Task>("/api/tasks", {
       method: "POST",
-      body: { title },
+      body: {
+        title,
+        userId: userStore.user.id, // Pass the logged-in user's UUID 🆔
+      },
     });
-    tasks.value.push(newTask); // Local update for speed!
+
+    tasks.value.push(newTask);
   }
 
   async function toggleTask(id: string, completed: boolean) {
