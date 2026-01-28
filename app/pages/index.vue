@@ -15,6 +15,9 @@
                 <li>
                     <NuxtLink to="/tasks">Project 2: Tasks (TS + API)</NuxtLink>
                 </li>
+                <li>
+                    <NuxtLink to="/register">Register</NuxtLink>
+                </li>
             </ul>
         </nav>
     </div>
