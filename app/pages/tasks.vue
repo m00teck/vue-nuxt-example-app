@@ -1,7 +1,12 @@
 <script setup lang="ts">
 
+definePageMeta({
+  middleware: 'auth'
+})
 import { useTaskStore } from '~/stores/tasks';
 import { storeToRefs } from 'pinia';
+
+const userStore = useUserStore()
 
 const taskStore = useTaskStore();
 
@@ -23,10 +28,17 @@ async function handleAdd() {
 </script>
 
 <template>
+  <nav v-if="userStore.isLoggedIn">
+    <span>Logged in as: <strong>{{ userStore.user?.username }}</strong></span>
+    <button @click="userStore.logout()">Logout</button>
+  </nav>
   <div class="tasks-container">
     <NuxtLink to="/">← Back Home</NuxtLink>
     <h1>Project 2: Task Manager</h1>
-    <h2>Tasks: {{ taskStore.totalTasks }}</h2>
+    <div>
+      <h2>Welcome, {{ userStore.user?.username || 'Guest' }}</h2>
+    </div>
+    <h3>Tasks: {{ taskStore.totalTasks }}</h3>
 
     <div class="add-task">
       <input v-model="newTaskTitle" @keyup.enter="handleAdd" placeholder="What needs to be done?" />
@@ -40,12 +52,8 @@ async function handleAdd() {
     <ul v-else-if="tasks && tasks.length">
       <li v-for="task in tasks" :key="task.id" class="task-item">
         <label class="status-label">
-          <input 
-            type="checkbox"
-            class="status-checkbox" 
-            :checked="task.completed" 
-            @change="taskStore.toggleTask(task.id, !task.completed)"
-          >
+          <input type="checkbox" class="status-checkbox" :checked="task.completed"
+            @change="taskStore.toggleTask(task.id, !task.completed)">
           <span class="status-icon">{{ task.completed ? '✅' : '⭕' }}</span>
         </label>
 
