@@ -6,4 +6,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["./app/stores/**"],
   },
+  future: {
+    compatibilityVersion: 4,
+  },
 });
