@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const nameInput = ref('');
 const { data, refresh } = await useFetch('/api/hello', { query: { name: nameInput } });
 </script>

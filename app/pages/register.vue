@@ -39,5 +39,6 @@ async function handleRegister() {
         {{ isLoading ? 'Signing up...' : 'Register' }}
       </button>
     </form>
+    <p>Already have an account? <NuxtLink to="/login">Login</NuxtLink></p>
   </div>
 </template>

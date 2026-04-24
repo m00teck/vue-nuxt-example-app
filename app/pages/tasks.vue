@@ -3,8 +3,6 @@
 definePageMeta({
   middleware: 'auth'
 })
-import { useTaskStore } from '~/stores/tasks';
-import { storeToRefs } from 'pinia';
 
 const userStore = useUserStore()
 

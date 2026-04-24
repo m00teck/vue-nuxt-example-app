@@ -18,6 +18,9 @@
                 <li>
                     <NuxtLink to="/register">Register</NuxtLink>
                 </li>
+                <li>
+                    <NuxtLink to="/login">Login</NuxtLink>
+                </li>
             </ul>
         </nav>
     </div>
