@@ -24,5 +24,5 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  return { success: true };
+  return { id: user.id, email: user.email, username: user.username, createdAt: user.createdAt };
 });

@@ -9,7 +9,8 @@ export const useUserStore = defineStore("user", () => {
   async function logout() {
     await $fetch("/api/auth/logout", { method: "POST" });
     user.value = null;
-    await navigateTo("/");
+    useTaskStore().reset();
+    await navigateTo("/login");
   }
 
   return { user, isLoggedIn, setUser };

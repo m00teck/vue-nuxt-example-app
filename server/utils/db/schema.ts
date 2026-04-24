@@ -5,7 +5,7 @@ export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
   username: text("username").notNull(),
   email: text("email").notNull().unique(),
-  password: text("password").notNull(), // We will hash this later!
+  password: text("password").notNull(), // Stored as scrypt hash
   createdAt: timestamp("created_at").defaultNow(),
 });
 

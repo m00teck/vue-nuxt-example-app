@@ -24,7 +24,6 @@ export const useTaskStore = defineStore("tasks", () => {
   async function addTask(title: string) {
     const userStore = useUserStore();
 
-    // We check if a user is logged in before even trying
     if (!userStore.user?.id) {
       errorMessage.value = "You must be logged in to add tasks.";
       return;
@@ -32,10 +31,7 @@ export const useTaskStore = defineStore("tasks", () => {
 
     const newTask = await $fetch<Task>("/api/tasks", {
       method: "POST",
-      body: {
-        title,
-        userId: userStore.user.id, // Pass the logged-in user's UUID 🆔
-      },
+      body: { title },
     });
 
     tasks.value.push(newTask);
@@ -53,14 +49,14 @@ export const useTaskStore = defineStore("tasks", () => {
   }
 
   async function removeTask(id: string) {
-    const updated = await $fetch<Task>(`/api/tasks/${id}`, {
-      method: "DELETE",
-    });
+    await $fetch(`/api/tasks/${id}`, { method: "DELETE" });
+    tasks.value = tasks.value.filter((task: Task) => task.id !== id);
+  }
 
-    const index = tasks.value.findIndex((t: Task) => t.id === id);
-    if (index !== -1) {
-      tasks.value = tasks.value.filter((task: Task) => task.id !== id);
-    }
+  function reset() {
+    tasks.value = [];
+    loading.value = false;
+    errorMessage.value = null;
   }
 
   return {
@@ -72,5 +68,6 @@ export const useTaskStore = defineStore("tasks", () => {
     removeTask,
     totalTasks,
     completedTasks,
+    reset,
   };
 });

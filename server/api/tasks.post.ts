@@ -3,8 +3,6 @@ export default defineEventHandler(async (event) => {
   // 1. Get the session
   const session = await getUserSession(event);
 
-  console.log("Session in tasks.post.ts: ", session);
-
   // 2. Check auth BEFORE trying to do anything else
   if (!session?.user) {
     throw createError({

@@ -1,7 +1,7 @@
 // server/api/tasks.get.ts
 import { db } from "~~/server/utils/db";
 import { tasks } from "~~/server/utils/db/schema";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event);
@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
     const allTasks = await db
       .select()
       .from(tasks)
+      .where(eq(tasks.userId, session.user.id))
       .orderBy(desc(tasks.createdAt));
 
     return allTasks;
